@@ -4,19 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ohm's Law Calculator</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
-  <body>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .input-with-unit {
+            display: flex;
+        }
+        .input-with-unit input {
+            flex-grow: 1;
+        }
+        .input-with-unit select {
+            width: 80px;
+            margin-left: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            display: none;
+        }
+        .formulas {
+            margin-top: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="container mx-auto px-4 py-8 max-w-md">
-        <h1 class="text-2xl font-bold text-center mb-6">Ohm's Law Calculator</h1>
+<body>
+    <div class="container">
+        <h1>Ohm's Law Calculator</h1>
         
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="card">
             <form id="ohmsLawForm">
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2">Calculate:</label>
-                    <select id="calculateType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div class="form-group">
+                    <label>Calculate:</label>
+                    <select id="calculateType">
                         <option value="voltage">Voltage (V)</option>
                         <option value="current">Current (I)</option>
                         <option value="resistance">Resistance (R)</option>
@@ -24,11 +92,11 @@
                     </select>
                 </div>
 
-                <div id="voltageInput" class="mb-4">
-                    <label for="voltage" class="block text-gray-700 font-medium mb-2">Voltage (V):</label>
-                    <div class="flex">
-                        <input type="number" id="voltage" placeholder="Enter voltage" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <select id="voltageUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div id="voltageInput" class="form-group">
+                    <label for="voltage">Voltage (V):</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="voltage" placeholder="Enter voltage">
+                        <select id="voltageUnit">
                             <option value="1">V</option>
                             <option value="0.001">mV</option>
                             <option value="1000">kV</option>
@@ -36,11 +104,11 @@
                     </div>
                 </div>
                 
-                <div id="currentInput" class="mb-4">
-                    <label for="current" class="block text-gray-700 font-medium mb-2">Current (I):</label>
-                    <div class="flex">
-                        <input type="number" id="current" placeholder="Enter current" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <select id="currentUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div id="currentInput" class="form-group">
+                    <label for="current">Current (I):</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="current" placeholder="Enter current">
+                        <select id="currentUnit">
                             <option value="1">A</option>
                             <option value="0.001">mA</option>
                             <option value="0.000001">μA</option>
@@ -48,11 +116,11 @@
                     </div>
                 </div>
                 
-                <div id="resistanceInput" class="mb-4">
-                    <label for="resistance" class="block text-gray-700 font-medium mb-2">Resistance (R):</label>
-                    <div class="flex">
-                        <input type="number" id="resistance" placeholder="Enter resistance" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <select id="resistanceUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div id="resistanceInput" class="form-group">
+                    <label for="resistance">Resistance (R):</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="resistance" placeholder="Enter resistance">
+                        <select id="resistanceUnit">
                             <option value="1">Ω</option>
                             <option value="1000">kΩ</option>
                             <option value="1000000">MΩ</option>
@@ -60,11 +128,11 @@
                     </div>
                 </div>
                 
-                <div id="powerInput" class="mb-4">
-                    <label for="power" class="block text-gray-700 font-medium mb-2">Power (P):</label>
-                    <div class="flex">
-                        <input type="number" id="power" placeholder="Enter power" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <select id="powerUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <div id="powerInput" class="form-group">
+                    <label for="power">Power (P):</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="power" placeholder="Enter power">
+                        <select id="powerUnit">
                             <option value="1">W</option>
                             <option value="0.001">mW</option>
                             <option value="1000">kW</option>
@@ -72,18 +140,18 @@
                     </div>
                 </div>
                 
-                <button type="button" id="calculateBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md">Calculate</button>
+                <button type="button" id="calculateBtn">Calculate</button>
             </form>
         </div>
         
-        <div id="result" class="bg-white rounded-lg shadow-md p-6 hidden">
-            <h2 class="text-lg font-bold mb-4">Result:</h2>
-            <div id="resultContent" class="space-y-2"></div>
+        <div id="result" class="card">
+            <h2>Result:</h2>
+            <div id="resultContent"></div>
         </div>
         
-        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
-            <h2 class="text-lg font-bold mb-4">Ohm's Law Formulas:</h2>
-            <ul class="list-disc pl-5 space-y-2">
+        <div class="card formulas">
+            <h2>Ohm's Law Formulas:</h2>
+            <ul>
                 <li>Voltage (V) = Current (I) × Resistance (R)</li>
                 <li>Current (I) = Voltage (V) ÷ Resistance (R)</li>
                 <li>Resistance (R) = Voltage (V) ÷ Current (I)</li>
@@ -308,20 +376,20 @@
                 
                 // Build result HTML
                 let resultHTML = '';
-                resultHTML += `<p class="font-bold">${selected.charAt(0).toUpperCase() + selected.slice(1)}: ${formatted}</p>`;
+                resultHTML += `<p><strong>${selected.charAt(0).toUpperCase() + selected.slice(1)}: ${formatted}</strong></p>`;
                 
                 if (usedInputs.length > 0) {
-                    resultHTML += '<p class="text-gray-600 mt-2">Using:</p>';
-                    resultHTML += '<ul class="list-disc pl-5">';
+                    resultHTML += '<p>Using:</p>';
+                    resultHTML += '<ul>';
                     usedInputs.forEach(input => {
-                        resultHTML += `<li class="text-gray-600">${input}</li>`;
+                        resultHTML += `<li>${input}</li>`;
                     });
                     resultHTML += '</ul>';
                 }
                 
                 // Show result
                 resultContent.innerHTML = resultHTML;
-                result.classList.remove('hidden');
+                result.style.display = 'block';
             });
         });
     </script>
