@@ -1,36 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resistor Color Code Calculator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohm's Law Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@4.1.4/dist/lib.min.js"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold mb-4 text-center">Resistor Color Code Calculator</h1>
-    <div class="space-y-4">
-      <div>
-        <label for="band1" class="block mb-1">Band 1:</label>
-        <select id="band1" class="w-full p-2 border rounded"></select>
-      </div>
-      <div>
-        <label for="band2" class="block mb-1">Band 2:</label>
-        <select id="band2" class="w-full p-2 border rounded"></select>
-      </div>
-      <div>
-        <label for="multiplier" class="block mb-1">Multiplier (Band 3):</label>
-        <select id="multiplier" class="w-full p-2 border rounded"></select>
-      </div>
-      <div>
-        <label for="tolerance" class="block mb-1">Tolerance (Band4):</label>
-        <select id="tolerance" class="w-full p-2 border rounded"></select>
-      </div>
-      <button id="calculate" class="w-full bg-blue-600 text-white p-2 rounded">Calculate</button>
-      <div id="result" class="mt-4 text-center font-semibold"></div>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-6">Ohm's Law Calculator</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <form id="ohmsLawForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Calculate:</label>
+                    <select id="calculateType" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="voltage">Voltage (V)</option>
+                        <option value="current">Current (I)</option>
+                        <option value="resistance">Resistance (R)</option>
+                        <option value="power">Power (P)</option>
+                    </select>
+                </div>
+
+                <div id="voltageInput" class="mb-4">
+                    <label for="voltage" class="block text-gray-700 font-medium mb-2">Voltage (V):</label>
+                    <div class="flex">
+                        <input type="number" id="voltage" placeholder="Enter voltage" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select id="voltageUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="1">V</option>
+                            <option value="0.001">mV</option>
+                            <option value="1000">kV</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="currentInput" class="mb-4">
+                    <label for="current" class="block text-gray-700 font-medium mb-2">Current (I):</label>
+                    <div class="flex">
+                        <input type="number" id="current" placeholder="Enter current" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select id="currentUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="1">A</option>
+                            <option value="0.001">mA</option>
+                            <option value="0.000001">μA</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="resistanceInput" class="mb-4">
+                    <label for="resistance" class="block text-gray-700 font-medium mb-2">Resistance (R):</label>
+                    <div class="flex">
+                        <input type="number" id="resistance" placeholder="Enter resistance" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select id="resistanceUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="1">Ω</option>
+                            <option value="1000">kΩ</option>
+                            <option value="1000000">MΩ</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="powerInput" class="mb-4">
+                    <label for="power" class="block text-gray-700 font-medium mb-2">Power (P):</label>
+                    <div class="flex">
+                        <input type="number" id="power" placeholder="Enter power" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select id="powerUnit" class="ml-2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="1">W</option>
+                            <option value="0.001">mW</option>
+                            <option value="1000">kW</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="button" id="calculateBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md">Calculate</button>
+            </form>
+        </div>
+        
+        <div id="result" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-lg font-bold mb-4">Result:</h2>
+            <div id="resultContent" class="space-y-2"></div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+            <h2 class="text-lg font-bold mb-4">Ohm's Law Formulas:</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Voltage (V) = Current (I) × Resistance (R)</li>
+                <li>Current (I) = Voltage (V) ÷ Resistance (R)</li>
+                <li>Resistance (R) = Voltage (V) ÷ Current (I)</li>
+                <li>Power (P) = Voltage (V) × Current (I)</li>
+                <li>Power (P) = Current² (I) × Resistance (R)</li>
+                <li>Power (P) = Voltage² (V) ÷ Resistance (R)</li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <script src="js/script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateType = document.getElementById('calculateType');
+            const voltageInput = document.getElementById('voltageInput');
+            const currentInput = document.getElementById('currentInput');
+            const resistanceInput = document.getElementById('resistanceInput');
+            const powerInput = document.getElementById('powerInput');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const result = document.getElementById('result');
+            const resultContent = document.getElementById('resultContent');
+            
+            // Hide the appropriate input field based on what we're calculating
+            function updateInputFields() {
+                const selected = calculateType.value;
+                
+                voltageInput.style.display = selected === 'voltage' ? 'none' : 'block';
+                currentInput.style.display = selected === 'current' ? 'none' : 'block';
+                resistanceInput.style.display = selected === 'resistance' ? 'none' : 'block';
+                powerInput.style.display = selected === 'power' ? 'none' : 'block';
+            }
+            
+            // Initialize input field visibility
+            updateInputFields();
+            
+            // Update input fields when calculation type changes
+            calculateType.addEventListener('change', updateInputFields);
+            
+            // Calculate button click handler
+            calculateBtn.addEventListener('click', function() {
+                const selected = calculateType.value;
+                
+                // Get values from inputs and convert to base units
+                const voltage = selected !== 'voltage' ? 
+                    parseFloat(document.getElementById('voltage').value) * parseFloat(document.getElementById('voltageUnit').value) : 0;
+                
+                const current = selected !== 'current' ? 
+                    parseFloat(document.getElementById('current').value) * parseFloat(document.getElementById('currentUnit').value) : 0;
+                
+                const resistance = selected !== 'resistance' ? 
+                    parseFloat(document.getElementById('resistance').value) * parseFloat(document.getElementById('resistanceUnit').value) : 0;
+                
+                const power = selected !== 'power' ? 
+                    parseFloat(document.getElementById('power').value) * parseFloat(document.getElementById('powerUnit').value) : 0;
+                
+                // Check for valid inputs
+                if ((selected !== 'voltage' && isNaN(voltage)) || 
+                    (selected !== 'current' && isNaN(current)) || 
+                    (selected !== 'resistance' && isNaN(resistance)) || 
+                    (selected !== 'power' && isNaN(power))) {
+                    alert('Please enter valid numbers for all required fields.');
+                    return;
+                }
+                
+                let calculatedValue = 0;
+                let unit = '';
+                
+                // Calculate based on selected type
+                switch (selected) {
+                    case 'voltage':
+                        if (current && resistance) {
+                            calculatedValue = current * resistance;
+                            unit = 'V';
+                        } else if (power && current) {
+                            calculatedValue = power / current;
+                            unit = 'V';
+                        } else if (power && resistance) {
+                            calculatedValue = Math.sqrt(power * resistance);
+                            unit = 'V';
+                        } else {
+                            alert('Please provide either current and resistance, power and current, or power and resistance.');
+                            return;
+                        }
+                        break;
+                        
+                    case 'current':
+                        if (voltage && resistance) {
+                            calculatedValue = voltage / resistance;
+                            unit = 'A';
+                        } else if (power && voltage) {
+                            calculatedValue = power / voltage;
+                            unit = 'A';
+                        } else if (power && resistance) {
+                            calculatedValue = Math.sqrt(power / resistance);
+                            unit = 'A';
+                        } else {
+                            alert('Please provide either voltage and resistance, power and voltage, or power and resistance.');
+                            return;
+                        }
+                        break;
+                        
+                    case 'resistance':
+                        if (voltage && current) {
+                            calculatedValue = voltage / current;
+                            unit = 'Ω';
+                        } else if (power && current) {
+                            calculatedValue = power / (current * current);
+                            unit = 'Ω';
+                        } else if (power && voltage) {
+                            calculatedValue = (voltage * voltage) / power;
+                            unit = 'Ω';
+                        } else {
+                            alert('Please provide either voltage and current, power and current, or power and voltage.');
+                            return;
+                        }
+                        break;
+                        
+                    case 'power':
+                        if (voltage && current) {
+                            calculatedValue = voltage * current;
+                            unit = 'W';
+                        } else if (current && resistance) {
+                            calculatedValue = current * current * resistance;
+                            unit = 'W';
+                        } else if (voltage && resistance) {
+                            calculatedValue = (voltage * voltage) / resistance;
+                            unit = 'W';
+                        } else {
+                            alert('Please provide either voltage and current, current and resistance, or voltage and resistance.');
+                            return;
+                        }
+                        break;
+                }
+                
+                // Format results with appropriate units
+                let formatted = '';
+                if (unit === 'V') {
+                    if (calculatedValue >= 1000) {
+                        formatted = (calculatedValue / 1000).toFixed(3) + ' kV';
+                    } else if (calculatedValue < 1 && calculatedValue >= 0.001) {
+                        formatted = (calculatedValue * 1000).toFixed(3) + ' mV';
+                    } else {
+                        formatted = calculatedValue.toFixed(3) + ' V';
+                    }
+                } else if (unit === 'A') {
+                    if (calculatedValue >= 1) {
+                        formatted = calculatedValue.toFixed(3) + ' A';
+                    } else if (calculatedValue < 1 && calculatedValue >= 0.001) {
+                        formatted = (calculatedValue * 1000).toFixed(3) + ' mA';
+                    } else {
+                        formatted = (calculatedValue * 1000000).toFixed(3) + ' μA';
+                    }
+                } else if (unit === 'Ω') {
+                    if (calculatedValue >= 1000000) {
+                        formatted = (calculatedValue / 1000000).toFixed(3) + ' MΩ';
+                    } else if (calculatedValue >= 1000) {
+                        formatted = (calculatedValue / 1000).toFixed(3) + ' kΩ';
+                    } else {
+                        formatted = calculatedValue.toFixed(3) + ' Ω';
+                    }
+                } else if (unit === 'W') {
+                    if (calculatedValue >= 1000) {
+                        formatted = (calculatedValue / 1000).toFixed(3) + ' kW';
+                    } else if (calculatedValue < 1 && calculatedValue >= 0.001) {
+                        formatted = (calculatedValue * 1000).toFixed(3) + ' mW';
+                    } else {
+                        formatted = calculatedValue.toFixed(3) + ' W';
+                    }
+                }
+                
+                // Display inputs used for calculation
+                let usedInputs = [];
+                if (selected !== 'voltage' && !isNaN(voltage)) {
+                    usedInputs.push(`Voltage: ${formatValue(voltage, 'V')}`);
+                }
+                if (selected !== 'current' && !isNaN(current)) {
+                    usedInputs.push(`Current: ${formatValue(current, 'A')}`);
+                }
+                if (selected !== 'resistance' && !isNaN(resistance)) {
+                    usedInputs.push(`Resistance: ${formatValue(resistance, 'Ω')}`);
+                }
+                if (selected !== 'power' && !isNaN(power)) {
+                    usedInputs.push(`Power: ${formatValue(power, 'W')}`);
+                }
+                
+                // Format value with appropriate unit prefix
+                function formatValue(value, baseUnit) {
+                    if (baseUnit === 'V') {
+                        if (value >= 1000) {
+                            return (value / 1000).toFixed(3) + ' k' + baseUnit;
+                        } else if (value < 1 && value >= 0.001) {
+                            return (value * 1000).toFixed(3) + ' m' + baseUnit;
+                        } else {
+                            return value.toFixed(3) + ' ' + baseUnit;
+                        }
+                    } else if (baseUnit === 'A') {
+                        if (value >= 1) {
+                            return value.toFixed(3) + ' ' + baseUnit;
+                        } else if (value < 1 && value >= 0.001) {
+                            return (value * 1000).toFixed(3) + ' m' + baseUnit;
+                        } else {
+                            return (value * 1000000).toFixed(3) + ' μ' + baseUnit;
+                        }
+                    } else if (baseUnit === 'Ω') {
+                        if (value >= 1000000) {
+                            return (value / 1000000).toFixed(3) + ' M' + baseUnit;
+                        } else if (value >= 1000) {
+                            return (value / 1000).toFixed(3) + ' k' + baseUnit;
+                        } else {
+                            return value.toFixed(3) + ' ' + baseUnit;
+                        }
+                    } else if (baseUnit === 'W') {
+                        if (value >= 1000) {
+                            return (value / 1000).toFixed(3) + ' k' + baseUnit;
+                        } else if (value < 1 && value >= 0.001) {
+                            return (value * 1000).toFixed(3) + ' m' + baseUnit;
+                        } else {
+                            return value.toFixed(3) + ' ' + baseUnit;
+                        }
+                    }
+                    return value.toFixed(3) + ' ' + baseUnit;
+                }
+                
+                // Build result HTML
+                let resultHTML = '';
+                resultHTML += `<p class="font-bold">${selected.charAt(0).toUpperCase() + selected.slice(1)}: ${formatted}</p>`;
+                
+                if (usedInputs.length > 0) {
+                    resultHTML += '<p class="text-gray-600 mt-2">Using:</p>';
+                    resultHTML += '<ul class="list-disc pl-5">';
+                    usedInputs.forEach(input => {
+                        resultHTML += `<li class="text-gray-600">${input}</li>`;
+                    });
+                    resultHTML += '</ul>';
+                }
+                
+                // Show result
+                resultContent.innerHTML = resultHTML;
+                result.classList.remove('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
