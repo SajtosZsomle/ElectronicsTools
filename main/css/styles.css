@@ -1,0 +1,7 @@
+/* css/styles.css */
+
+/* Custom glow effect for the search input */
+#searchInput:focus {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+  

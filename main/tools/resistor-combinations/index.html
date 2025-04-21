@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resistor Color Code Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4 text-center">Resistor Color Code Calculator</h1>
+    <div class="space-y-4">
+      <div>
+        <label for="band1" class="block mb-1">Band 1:</label>
+        <select id="band1" class="w-full p-2 border rounded"></select>
+      </div>
+      <div>
+        <label for="band2" class="block mb-1">Band 2:</label>
+        <select id="band2" class="w-full p-2 border rounded"></select>
+      </div>
+      <div>
+        <label for="multiplier" class="block mb-1">Multiplier (Band 3):</label>
+        <select id="multiplier" class="w-full p-2 border rounded"></select>
+      </div>
+      <div>
+        <label for="tolerance" class="block mb-1">Tolerance (Band4):</label>
+        <select id="tolerance" class="w-full p-2 border rounded"></select>
+      </div>
+      <button id="calculate" class="w-full bg-blue-600 text-white p-2 rounded">Calculate</button>
+      <div id="result" class="mt-4 text-center font-semibold"></div>
+    </div>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronics Tools Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="bg-blue-600 text-white p-6">
+    <h1 class="text-3xl font-bold text-center">Electronics Tools Hub</h1>
+    <p class="text-center mt-2">Your go-to calculators for electronics projects</p>
+  </header>
+
+  <main class="p-6">
+    <!-- Search Bar -->
+    <div class="mb-6">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search tools..."
+        class="w-full p-3 border border-gray-300 rounded shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <!-- Tool Cards -->
+    <div id="toolCards" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Tool cards will be dynamically inserted here -->
+    </div>
+  </main>
+
+  <footer class="bg-gray-200 text-center p-4">
+    &copy; 2025 mrzsomi.site
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
