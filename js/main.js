@@ -11,7 +11,7 @@ const tools = [
   {
     name: "Ohm's Law Calculator",
     description: "Calculate voltage, current, resistance, or power.",
-    image: "images/ohms-law.jpg",
+    image: "images/ohms-law.jpeg",
     link: "tools/ohms-law/index.html",
   },
   {
