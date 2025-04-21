@@ -4,16 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ohm's Law Calculator</title>
-    <!-- Make sure to link to your project's CSS file -->
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .input-with-unit {
+            display: flex;
+        }
+        .input-with-unit input {
+            flex-grow: 1;
+        }
+        .input-with-unit select {
+            width: 80px;
+            margin-left: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            display: none;
+        }
+        .formulas {
+            margin-top: 20px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Ohm's Law Calculator</h1>
         
-        <div class="calculator-card">
+        <div class="card">
             <form id="ohmsLawForm">
-                <div class="input-group">
+                <div class="form-group">
                     <label>Calculate:</label>
                     <select id="calculateType">
                         <option value="voltage">Voltage (V)</option>
@@ -23,7 +92,7 @@
                     </select>
                 </div>
 
-                <div id="voltageInput" class="input-group">
+                <div id="voltageInput" class="form-group">
                     <label for="voltage">Voltage (V):</label>
                     <div class="input-with-unit">
                         <input type="number" id="voltage" placeholder="Enter voltage">
@@ -35,7 +104,7 @@
                     </div>
                 </div>
                 
-                <div id="currentInput" class="input-group">
+                <div id="currentInput" class="form-group">
                     <label for="current">Current (I):</label>
                     <div class="input-with-unit">
                         <input type="number" id="current" placeholder="Enter current">
@@ -47,7 +116,7 @@
                     </div>
                 </div>
                 
-                <div id="resistanceInput" class="input-group">
+                <div id="resistanceInput" class="form-group">
                     <label for="resistance">Resistance (R):</label>
                     <div class="input-with-unit">
                         <input type="number" id="resistance" placeholder="Enter resistance">
@@ -59,7 +128,7 @@
                     </div>
                 </div>
                 
-                <div id="powerInput" class="input-group">
+                <div id="powerInput" class="form-group">
                     <label for="power">Power (P):</label>
                     <div class="input-with-unit">
                         <input type="number" id="power" placeholder="Enter power">
@@ -75,12 +144,12 @@
             </form>
         </div>
         
-        <div id="result" class="calculator-card" style="display: none;">
+        <div id="result" class="card">
             <h2>Result:</h2>
             <div id="resultContent"></div>
         </div>
         
-        <div class="calculator-card">
+        <div class="card formulas">
             <h2>Ohm's Law Formulas:</h2>
             <ul>
                 <li>Voltage (V) = Current (I) × Resistance (R)</li>
@@ -325,4 +394,6 @@
         });
     </script>
 </body>
+
+</html>
 </html>
